@@ -34,7 +34,7 @@ class DMSConfig():
         creds = {key: value for (key, value) in match}
 
         # standard DMS defaults...
-        default_port = 9998 if (network == 'mainnet') else 19998
+        default_port = 41320 if (network == 'mainnet') else 41420
 
         # use default port for network if not specified in dms.conf
         if not ('port' in creds):

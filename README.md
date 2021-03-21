@@ -29,7 +29,7 @@ Update system packages and ensure virtualenv is installed:
     $ sudo apt-get update
     $ sudo apt-get -y install python-virtualenv
 
-Make sure the local DMSCore daemon running is at least version 12.1 (120100)
+Make sure the local DMSCore daemon running is at least version 0.13.3
 
     $ dms-cli getinfo | grep version
 

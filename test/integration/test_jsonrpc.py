@@ -16,12 +16,12 @@ def test_dms():
     config_text = DMSConfig.slurp_config_file(config.dms_conf)
     network = 'mainnet'
     is_testnet = False
-    genesis_hash = u'00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6'
+    genesis_hash = u'00000af4a21d6e8daa4026a5eafc7132089a7dbb9d3921b12c4fa39b78c9a010'
     for line in config_text.split("\n"):
         if line.startswith('testnet=1'):
             network = 'testnet'
             is_testnet = True
-            genesis_hash = u'00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c'
+            genesis_hash = u'00004399a114a034b2f8d742b8e7f018d3cfdec0b25150d0b7e271b63c9cd4ce'
 
     creds = DMSConfig.get_rpc_creds(config_text, network)
     dmsd = DMSDaemon(**creds)
@@ -29,7 +29,7 @@ def test_dms():
 
     assert hasattr(dmsd, 'rpc_connection')
 
-    # Documentchain testnet block 0 hash == 00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c
+    # Documentchain testnet block 0 hash == 00004399a114a034b2f8d742b8e7f018d3cfdec0b25150d0b7e271b63c9cd4ce
     # test commands without arguments
     info = dmsd.rpc_command('getinfo')
     info_keys = [

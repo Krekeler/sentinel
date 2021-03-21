@@ -30,6 +30,15 @@ def prune_expired_proposals(dashd):
         proposal.vote(dashd, VoteSignals.delete, VoteOutcomes.yes)
 
 
+# ping dashd
+def sentinel_ping(dashd):
+    printdbg("in sentinel_ping")
+
+    dashd.ping()
+
+    printdbg("leaving sentinel_ping")
+
+
 def attempt_superblock_creation(dashd):
     import dashlib
 
@@ -115,11 +124,6 @@ def main():
     dashd = DashDaemon.from_dash_conf(config.dash_conf)
     options = process_args()
 
-    # print version and return if "--version" is an argument
-    if options.version:
-        print("Dash Sentinel v%s" % config.sentinel_version)
-        return
-
     # check dashd connectivity
     if not is_dashd_port_open(dashd):
         print("Cannot connect to dashd. Please ensure dashd is running and the JSONRPC port is open to Sentinel.")
@@ -165,6 +169,9 @@ def main():
     # load "gobject list" rpc command data, sync objects into internal database
     perform_dashd_object_sync(dashd)
 
+    if dashd.has_sentinel_ping:
+        sentinel_ping(dashd)
+
     # auto vote network objects as valid/invalid
     # check_object_validity(dashd)
 
@@ -194,10 +201,6 @@ def process_args():
                         action='store_true',
                         help='Bypass scheduler and sync/vote immediately',
                         dest='bypass')
-    parser.add_argument('-v', '--version',
-                        action='store_true',
-                        help='Print the version (Dash Sentinel vX.X.X) and exit')
-
     args = parser.parse_args()
 
     return args

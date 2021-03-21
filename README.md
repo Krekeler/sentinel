@@ -18,29 +18,29 @@ Sentinel is an autonomous agent for persisting, processing and automating Dash g
 
 ## Install
 
-These instructions cover installing Sentinel on Ubuntu 18.04 / 20.04.
+These instructions cover installing Sentinel on Ubuntu 16.04 / 18.04.
 
 ### Dependencies
 
-Update system package list and install dependencies:
+Make sure Python version 2.7.x or above is installed:
+
+    python --version
+
+Update system packages and ensure virtualenv is installed:
 
     $ sudo apt-get update
-    $ sudo apt-get -y install git python3 virtualenv
+    $ sudo apt-get -y install python-virtualenv
 
-Make sure Python version 3.6.x or above is installed:
+Make sure the local DashCore daemon running is at least version 12.1 (120100)
 
-    python3 --version
-
-Make sure the local DashCore daemon running is at least version 0.15.0.
-
-    $ dashd --version | head -n1
+    $ dash-cli getinfo | grep version
 
 ### Install Sentinel
 
 Clone the Sentinel repo and install Python dependencies.
 
     $ git clone https://github.com/dashpay/sentinel.git && cd sentinel
-    $ virtualenv -p $(which python3) ./venv
+    $ virtualenv ./venv
     $ ./venv/bin/pip install -r requirements.txt
 
 ## Usage
